@@ -1,5 +1,6 @@
-language: generic
+language: python
 dist: xenial
 sudo: required
+python: "3.7"
 script:
-  - exit 0
+  - python3 test_counter.py
