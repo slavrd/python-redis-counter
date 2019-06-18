@@ -7,12 +7,11 @@ env:
   global:
     - REDIS_ADDR=localhost
     # REDIS_PASS
-    - secure: cxTY8l9upAO/Ae/RByFxni3kPB3EWv0E53RJOi/bTUr+HUt5bHou44OI8/HMUuKoO92xZxSWNa0BzMWmR9l80oLK5ir98Yr3ALUhIY5Yzua8Z31JIwtt9C+iRhDh1h3jDna+fIjJmptRJisKswtNSGuRc2mmtRK9tfjYhBzpY8vxDjG4mNlmp1RZbynfmqcxzVyqnhD/PwiCrIvUJtmq6l6B5ag/kzH4nvqeYotvjnmME3cv8AFbZIJLpQ8W2BYanKio0ANAzwcsz8q2heeSDqvAG9OpqudLcrC+hb8c4kFAg3RTn2SMRcR20rIQJuvoILhUKpvHhWJqQiCapFZYFfStOc8tOcn43UT4qDxlVKbQE6Y58C3z47vEDAB8CtYr+pyLZ3m+xcJ7SKoQSa+jHHX6OYYEWuFkpBwmrOXgrFBkMVXlWYT0VQOWtpyPGueaHVGuNCyjQeeGnIOuW/7m4w/MgQwhrzW5bgSrhrbQaBP0kl02JWlDz2zl1AeVJ/vX07Cn3YjMU8n1+5H137m2L0Dm9seAfRUq+Jcry9ZEcFr8t/Kfn11cM+QyoLK57kZKIzyGTmDZvJJCiyI3pQhgwiB/DefnJG3fhyfjFnVq7cYCfUVr6hCcvz+nFeqzOmadDXhQR3r+aCSPwDbLrCQGYocM+vgBC2WW3lpA7COWLYw=
+    - secure: fNM66kLGLUnuippsLYe9TRAc2hFOlE6ThlkJmIkTq1a+P83PpjVyZYK1ujmuMrPeEI4R/+Tn1ueUjqWXSyswr4DSUuwL6fdyVFh/wh4B+ZgUBXlEAPqN6haLilmcqlFHHQ4+ZsScxHVyBzTzLfnGSC2X6HZaZAHrdeb5GtC3C9IR1TwoHsJrjQq1fC07G0Jej4upHfz520q3HWcV03+fC5GfAbeb/kCCu9GIAMS9INh69EPnKZH0T7CYvAHoMZeWX3Awp+LKgpXieZ77Jj8yN71rNMJKfSOc7CUAZYZpw6ZQZDLA7WbrFOQqXqiH6UkxRHMzk/2pv/lycKNsYktEdd+uH2tStmAM3c8KsGDDIz9+YJmKHkfZy5XJZiaFqdWxs6VCsLv4xu8QdoUUqmne28ZLEgoroxHdy0XjemF9hOrKuaxKyfyQL6FJslBMpWwBX+UA2wrQNUt1PKEfISs+3OC3xWyEZ63oMF9Bd/azvnOc9MK+xme6bFZZszWtKJFWV4Kx8OMrRzD2zeyCwKBMROQ9vpvoxF1mtaDHmkJ9rX22DE2/KZ4YTaQ2wBbRWGSKepJVI4VxYLWi67/Rfad0eaC5Eh4Dsk/oJ4vJv7J7KQV9LmiUBqStNQTdq8O+ZQWM6EMd/Rey9x+4C+jiGz98dfJbLgMNIL86jhQR6r9echg=
 python: 
   - "3.5"
   - "3.7"
 before_script:
-  - echo $REDIS_PASS
   - ruby -e 'require "erb"; redis_pass=ENV["REDIS_PASS"]; File.write("config/redis.conf",ERB.new(File.read("config/redis.conf.erb")).result(binding))'
   - sudo cp config/redis.conf /etc/redis/redis.conf && sudo systemctl restart redis-server.service
 script:
