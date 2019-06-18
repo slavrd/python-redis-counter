@@ -1,4 +1,4 @@
-require 'ERB'
+require 'erb'
 
 Vagrant.configure("2") do |config|
 
