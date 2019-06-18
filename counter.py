@@ -5,10 +5,10 @@ class Counter:
     """Represents a counter that stores it's value in a Redis db
     """
 
-    def __init__(self, rhost: str, rport: int, rdb: int, rkey: str):
+    def __init__(self, rhost: str, rport: int, rdb: int, rkey: str, rpass :str=None):
         """A constructor for Counter using the provided connection details
         """
-        self.r = redis.Redis(host=rhost, port=rport, db=rdb)
+        self.r = redis.Redis(host=rhost, port=rport, db=rdb, password=rpass)
         self.rkey = rkey
 
     def incr(self, amount=1):
@@ -29,6 +29,6 @@ class Counter:
             return int(val)
 
 if __name__ == '__main__':
-    c = Counter(os.environ['REDIS_ADDR'],6379,0,'count')
+    c = Counter(os.getenv('REDIS_ADDR'),6379,0,'count',os.getenv('REDIS_PASS'))
     c.incr()
     print(c.get())
