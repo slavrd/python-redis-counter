@@ -1,5 +1,6 @@
 import counter
 import unittest
+import os
 
 class TestCounter(unittest.TestCase):
     """Tests the Counter class methods.
@@ -7,7 +8,7 @@ class TestCounter(unittest.TestCase):
     """
 
     # Initiate a Counter instance with connection to a local redis
-    c = counter.Counter('localhost',6379,0,'count')
+    c = counter.Counter('localhost',6379,0,'count',os.getenv("REDIS_PASS"))
 
     def test_redis_connection(self):
         """Tests if c can connect to the redis
