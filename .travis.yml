@@ -4,15 +4,16 @@ sudo: required
 services:
   - redis
 env:
-  - REDIS_ADDR=localhost
-  # REDIS_PASS
-  - secure: fa+KVy54El3VqvX/fo/Kdxn8M8h6qj+uSnyI8U06HqKPJqr9TR0mn1cGdNHJcS0Qbvj/yj5kRmfDThVJ2A3JKBPrOkIrtSvaabpKjk8K2Cp6Hmv03LJznY3g9uba9c3yHewjR21zOTvQd/y0NFXnKr4Qi63smqSvmAPbXsogEIYEmq3nP9NyEewJ3rl2o/kAIvRgdBMuzd8njGr//38OLvNYfaohFfWXoOivi0nl1edDR0y3iehhyt2CMiH5tzEWkxo6q4C8Zv4B8HiDgf7KN6o1U9YIjxC8yhAuQs0wM5LKYVRtdcjeg42xFK/0KmOx9H7z6+HXrJdzMSlcRATgnWfaUi65/+d3/IkB1UdlEUt0tEADOVOLMCGFkp9DMQEJVELZKIE1c23CXFOTr20GOHeva4h0Z3Sd4hfZm5GJb317pVx1Q9LE8Zld423wvBELJY3+D5BQ9e2wURZWKnTiaMOu1sdyny3Db+LGBx/xR/+yP3PnPeh4BuCHkHVdm2wxNs0ovDUUULzdpeHQLgNx2Bg5er0tu1nDdhfUkxheLIhHQjbZCrbkLRG5j8EdDZBs/BdODFNyjm3i40akYArKSk1qyC5lZ65kqzt2imLzzMuIMki4oNs5fp/H6ggjDTtLWHNgDOZ+uXoehAL2+KrCh6saIVyIeVv9+HN76aQWBkc=
+  global:
+    - REDIS_ADDR=localhost
+    # REDIS_PASS
+    - secure: fa+KVy54El3VqvX/fo/Kdxn8M8h6qj+uSnyI8U06HqKPJqr9TR0mn1cGdNHJcS0Qbvj/yj5kRmfDThVJ2A3JKBPrOkIrtSvaabpKjk8K2Cp6Hmv03LJznY3g9uba9c3yHewjR21zOTvQd/y0NFXnKr4Qi63smqSvmAPbXsogEIYEmq3nP9NyEewJ3rl2o/kAIvRgdBMuzd8njGr//38OLvNYfaohFfWXoOivi0nl1edDR0y3iehhyt2CMiH5tzEWkxo6q4C8Zv4B8HiDgf7KN6o1U9YIjxC8yhAuQs0wM5LKYVRtdcjeg42xFK/0KmOx9H7z6+HXrJdzMSlcRATgnWfaUi65/+d3/IkB1UdlEUt0tEADOVOLMCGFkp9DMQEJVELZKIE1c23CXFOTr20GOHeva4h0Z3Sd4hfZm5GJb317pVx1Q9LE8Zld423wvBELJY3+D5BQ9e2wURZWKnTiaMOu1sdyny3Db+LGBx/xR/+yP3PnPeh4BuCHkHVdm2wxNs0ovDUUULzdpeHQLgNx2Bg5er0tu1nDdhfUkxheLIhHQjbZCrbkLRG5j8EdDZBs/BdODFNyjm3i40akYArKSk1qyC5lZ65kqzt2imLzzMuIMki4oNs5fp/H6ggjDTtLWHNgDOZ+uXoehAL2+KrCh6saIVyIeVv9+HN76aQWBkc=
 python: 
   - "3.5"
   - "3.7"
 before_script:
   - echo $REDIS_PASS
-  - ruby -e 'require "ERB"; redis_pass=ENV["REDIS_PASS"]; File.write("config/redis.conf",ERB.new(File.read("config/redis.conf.erb")).result(binding))'
+  - ruby -e 'require "erb"; redis_pass=ENV["REDIS_PASS"]; File.write("config/redis.conf",ERB.new(File.read("config/redis.conf.erb")).result(binding))'
   - sudo cp config/redis.conf /etc/redis/redis.conf && sudo systemctl restart redis-server.service
 script:
   - python3 test_counter.py
