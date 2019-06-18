@@ -2,3 +2,4 @@
 .vscode/
 __pycache__/
 Pipfile.lock
+config/redis.conf
