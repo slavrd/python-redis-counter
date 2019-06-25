@@ -22,12 +22,12 @@ Vagrant.configure("2") do |config|
 
     config.vm.define 'client' do |c|
 
-        c.vm.box = "slavrd/xenial64"
+        c.vm.box = "slavrd/xenial64-python3"
         c.vm.network "private_network", ip: "192.168.2.21"
 
-        c.vm.provision "shell", path: "scripts/python_setup.sh"
-        c.vm.provision "shell", inline: "echo export REDIS_ADDR=#{redis_addr} | sudo tee -a /home/vagrant/.profile"
-        c.vm.provision "shell", inline: "echo export REDIS_PASS=#{redis_pass} | sudo tee -a /home/vagrant/.profile"
+        c.vm.provision "shell", path: "scripts/python_modules_install.sh"
+        c.vm.provision "shell", inline: "echo export REDIS_ADDR='#{redis_addr}' | sudo tee -a /home/vagrant/.profile"
+        c.vm.provision "shell", inline: "echo export REDIS_PASS='#{redis_pass}' | sudo tee -a /home/vagrant/.profile"
 
     end
 
