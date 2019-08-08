@@ -11,12 +11,12 @@ class Counter:
         self.r = redis.Redis(host=rhost, port=rport, db=rdb, password=rpass)
         self.rkey = rkey
 
-    def incr(self, amount=1):
+    def incr(self, amount=1) -> int:
         """Increases the value of the counter with amount.
         If self.rkey does not exist in redis initializes it with amount
         """
         
-        self.r.incr(self.rkey, amount)
+        return self.r.incr(self.rkey, amount)
 
     def get(self) -> int:
         """Get the current value of the counter
@@ -30,5 +30,4 @@ class Counter:
 
 if __name__ == '__main__':
     c = Counter(os.getenv('REDIS_ADDR'),6379,0,'count',os.getenv('REDIS_PASS'))
-    c.incr()
-    print(c.get())
+    print(c.incr())
