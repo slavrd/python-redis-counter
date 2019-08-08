@@ -43,9 +43,10 @@ class TestCounter(unittest.TestCase):
         # test that the values is increased by amount
         amount = 5
         ival = int(self.c.r.get('count'))
-        self.c.incr(amount)
+        rval = self.c.incr(amount)
         cval = int(self.c.r.get('count'))
-        self.assertEqual(amount, cval - ival, "incr() did not initialized the correct value")
+        self.assertEqual(amount, cval - ival, "incr() did not increase the value correctly")
+        self.assertEqual(cval, rval, "incr() did not return the resulting value")
 
 if __name__ == "__main__":
     unittest.main()
